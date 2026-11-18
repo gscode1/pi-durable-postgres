@@ -1,21 +1,23 @@
-# @netzlabor/pi-durable-postgres
+# @gscode1/pi-durable-postgres
 
 A PostgreSQL storage backend for
 [`@earendil-works/pi-durable`](https://github.com/earendil-works/pi/tree/main/packages/durable).
 This is an **SDK library**, not a Pi Coding Agent extension: install it with your
 application's package manager, not `pi install`.
 
-- **Source:** [j-koester/pi-durable-postgres](https://github.com/j-koester/pi-durable-postgres)
-- **npm package:** `@netzlabor/pi-durable-postgres`
+- **Source:** [gscode1/pi-durable-postgres](https://github.com/gscode1/pi-durable-postgres), a fork of
+  [j-koester/pi-durable-postgres](https://github.com/j-koester/pi-durable-postgres)
+- **npm package:** `@gscode1/pi-durable-postgres`. Upstream publishes `@netzlabor/pi-durable-postgres` (0.1.0 to 0.2.0, up to
+  Pi Durable 1.1); this fork publishes from 0.3.0 under its own name so the two cannot be confused.
 - **Status:** Alpha. Upstream Pi Durable is experimental; its API can change between releases.
 
 ## Compatibility
 
 | Package | Pi Durable / Chord | Runtime | Database |
 |---|---|---|---|
-| 0.1.0 | 1.0.2 / 1.0.2 | Node.js >=22.19.0 | PostgreSQL 17 tested |
-| 0.1.1 | 1.0.3 / 1.0.3 | Node.js >=22.19.0 | PostgreSQL 17 tested |
-| unreleased (`port-pi-durable-1.5`) | 1.5.2 / 1.5.2, exact | Node.js >=22.19.0 | PostgreSQL 17 tested |
+| 0.1.0 (upstream name) | 1.0.2 / 1.0.2 | Node.js >=22.19.0 | PostgreSQL 17 tested |
+| 0.1.1 (upstream name) | 1.0.3 / 1.0.3 | Node.js >=22.19.0 | PostgreSQL 17 tested |
+| 0.3.0 | 1.5.2 / 1.5.2, exact | Node.js >=22.19.0 | PostgreSQL 17 tested |
 
 The 1.5 storage contract changes are listed in [docs/port-1.5.md](docs/port-1.5.md).
 
@@ -52,7 +54,7 @@ See the [live-deletion design](docs/live-deletion.md) for the intended integrati
 Install the alpha release:
 
 ```bash
-npm install @netzlabor/pi-durable-postgres @earendil-works/pi-durable@1.5.2 @earendil-works/chord@1.5.2 @earendil-works/pi-ai@1.5.2
+npm install @gscode1/pi-durable-postgres @earendil-works/pi-durable@1.5.2 @earendil-works/chord@1.5.2 @earendil-works/pi-ai@1.5.2
 export DATABASE_URL='postgres://app:password@localhost:5432/agent_state'
 ```
 
@@ -60,7 +62,7 @@ export DATABASE_URL='postgres://app:password@localhost:5432/agent_state'
 import { BACKGROUND_CONTEXT as context } from "@earendil-works/chord/context";
 import { createModels } from "@earendil-works/pi-ai/models";
 import { Harness, createRegistry } from "@earendil-works/pi-durable";
-import { openNodePostgresStorage } from "@netzlabor/pi-durable-postgres";
+import { openNodePostgresStorage } from "@gscode1/pi-durable-postgres";
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) throw new Error("Set DATABASE_URL");
@@ -162,7 +164,7 @@ watches and task recovery still belong to the open Harness.
 
 ```typescript
 import pg from "pg";
-import { nodePostgresDatabase, deleteConversation } from "@netzlabor/pi-durable-postgres";
+import { nodePostgresDatabase, deleteConversation } from "@gscode1/pi-durable-postgres";
 
 // First stop request admission and await harness.close(context).
 // Use the SAME database and schema configuration as the closed storage.

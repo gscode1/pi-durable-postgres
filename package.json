@@ -1,6 +1,6 @@
 {
-  "name": "@netzlabor/pi-durable-postgres",
-  "version": "0.2.0",
+  "name": "@gscode1/pi-durable-postgres",
+  "version": "0.3.0",
   "description": "PostgreSQL storage backend for @earendil-works/pi-durable",
   "license": "MIT",
   "type": "module",
@@ -69,12 +69,12 @@
     "agent",
     "durable"
   ],
-  "homepage": "https://github.com/j-koester/pi-durable-postgres#readme",
+  "homepage": "https://github.com/gscode1/pi-durable-postgres#readme",
   "bugs": {
-    "url": "https://github.com/j-koester/pi-durable-postgres/issues"
+    "url": "https://github.com/gscode1/pi-durable-postgres/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/j-koester/pi-durable-postgres.git"
+    "url": "git+https://github.com/gscode1/pi-durable-postgres.git"
   }
 }

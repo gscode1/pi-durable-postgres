@@ -1,7 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 — 2026-11-18
 
+- Published as npm `@gscode1/pi-durable-postgres` from the fork `gscode1/pi-durable-postgres`. Upstream `@netzlabor/pi-durable-postgres` 0.2.0
+  (Pi Durable 1.1.0) is a different package; change the dependency name and the import specifier to move here.
+  The port is also proposed upstream in j-koester/pi-durable-postgres#20.
 - Ported to Pi Durable, Chord and Pi AI 1.5.2, pinned exactly (peer and dev). See `docs/port-1.5.md`.
 - `commit(batches, receive, context)` returns a `CommitResult`: all batches in one transaction, one seq each, the first
   refused batch ends the call, receipts after `COMMIT`. A database failure rejects the call instead of refusing a batch.

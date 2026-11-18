@@ -1,12 +1,12 @@
 # Releasing
 
-The source repository is **github.com/j-koester/pi-durable-postgres**.
-The public npm package is **@netzlabor/pi-durable-postgres**. These identities
-intentionally differ.
+The source repository is **github.com/gscode1/pi-durable-postgres**.
+The public npm package is **@gscode1/pi-durable-postgres**. The repository is a fork of
+github.com/j-koester/pi-durable-postgres, which publishes `@netzlabor/pi-durable-postgres`; this fork never publishes under that name.
 
 ## One-time GitHub/npm setup
 
-1. Ensure the npm publisher has permission to publish in the `@netzlabor` scope.
+1. Ensure the npm publisher has permission to publish in the `@gscode1` scope.
 2. In the GitHub repository, create an `npm` environment. Configure approval rules
    and permitted release tags as appropriate.
 3. Add the environment secret `NPM_TOKEN`: a valid granular npm automation token
@@ -54,7 +54,7 @@ release checkout using their existing npm login, then push the matching version
 tag. Explicitly override any private registry configured for the scope:
 
 ```bash
-npm publish --access public --registry=https://registry.npmjs.org --@netzlabor:registry=https://registry.npmjs.org
+npm publish --access public --registry=https://registry.npmjs.org --@gscode1:registry=https://registry.npmjs.org
 ```
 
 A scoped registry can take precedence over the general registry setting. Check a

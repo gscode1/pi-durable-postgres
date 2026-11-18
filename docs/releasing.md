@@ -44,14 +44,20 @@ assumption — the conformance suite is the gate.
 
 Branch pushes and PRs run tests but do not publish. A `v*` tag push runs the same
 matrix, then the release job verifies the package identity and exact tag/version
-match before calling `npm publish --access public`. If npm already contains this
-version with the exact same `gitHead`, the upload is skipped. A different or unknown
-commit is rejected instead of treating it as a successful release. Publishing runs
+match before calling `npm publish --access public`. `scripts/release-publication.mjs`
+decides whether to upload: if npm already contains this version with the exact same
+`gitHead`, the upload is skipped, and a different commit is rejected instead of being
+treated as a successful release. A version published without a `gitHead` (see below)
+is compared file by file with a fresh pack of the tagged commit: identical contents
+skip the upload, any difference fails the job. Publishing runs
 `prepack` to build dist. CI uses the packageManager-pinned pnpm version.
 
 For the initial release, a maintainer may publish locally from the clean, committed
 release checkout using their existing npm login, then push the matching version
-tag. Explicitly override any private registry configured for the scope:
+tag. Publish from a regular clone, not a `git worktree`: npm reads `.git/HEAD` to
+record `gitHead`, and in a worktree `.git` is a file, so npm silently records none
+(0.3.0 was published that way). Explicitly override any private registry configured
+for the scope:
 
 ```bash
 npm publish --access public --registry=https://registry.npmjs.org --@gscode1:registry=https://registry.npmjs.org

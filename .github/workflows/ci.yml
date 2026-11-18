@@ -75,24 +75,7 @@ jobs:
           '
       - name: Check for an existing publication of this commit
         id: publication
-        run: |
-          node --input-type=module -e '
-            import { appendFileSync, readFileSync } from "node:fs";
-            const pkg = JSON.parse(readFileSync("package.json", "utf8"));
-            const url = "https://registry.npmjs.org/" + encodeURIComponent(pkg.name) + "/" + pkg.version;
-            const response = await fetch(url);
-            if (response.status === 404) {
-              appendFileSync(process.env.GITHUB_OUTPUT, "published=false\n");
-            } else {
-              if (!response.ok) throw new Error("npm registry returned " + response.status);
-              const published = await response.json();
-              if (published.gitHead !== process.env.GITHUB_SHA) {
-                throw new Error("Version already exists but belongs to a different or unknown commit");
-              }
-              appendFileSync(process.env.GITHUB_OUTPUT, "published=true\n");
-              console.log("This exact commit is already published; skipping duplicate upload");
-            }
-          '
+        run: node scripts/release-publication.mjs
       - name: Publish public scoped package
         if: steps.publication.outputs.published != 'true'
         run: |

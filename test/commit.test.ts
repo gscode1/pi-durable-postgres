@@ -78,4 +78,29 @@ describe("batched commit", () => {
 			expect((await fixture.storage.scanTasks({ status: "sleeping" }, 10, undefined, context)).items.map((t) => t.id)).toEqual([task]);
 		} finally { await fixture.cleanup(); }
 	});
+
+	it("round-trips a signal-only sleep without `until` (Pi Durable 1.6.0)", async () => {
+		const fixture = await freshStorage();
+		try {
+			const id = await fixture.storage.mintId<ConversationId>();
+			const task = await fixture.storage.mintId<TaskId<null>>();
+			const state = { status: "sleeping" as const, checkpoint: {}, signals: [{ signal: "approval", key: "k" }] };
+			const result = await fixture.storage.commit(
+				[[
+					{ type: "conversation", value: { id } },
+					{ type: "task", value: {
+						id: task, conversationId: id, kind: "k", version: 1, input: null, background: false,
+						abortRequested: false, state,
+					} },
+				]],
+				() => undefined,
+				context,
+			);
+			expect(result).toEqual({ stored: 1 });
+			const stored = (await fixture.storage.scanTasks({ status: "sleeping" }, 10, undefined, context)).items;
+			expect(stored.map((t) => t.id)).toEqual([task]);
+			expect(stored[0]?.state).toEqual(state);
+			expect(stored[0]?.state).not.toHaveProperty("until");
+		} finally { await fixture.cleanup(); }
+	});
 });

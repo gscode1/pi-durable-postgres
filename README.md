@@ -18,6 +18,7 @@ application's package manager, not `pi install`.
 | 0.1.0 (upstream name) | 1.0.2 / 1.0.2 | Node.js >=22.19.0 | PostgreSQL 17 tested |
 | 0.1.1 (upstream name) | 1.0.3 / 1.0.3 | Node.js >=22.19.0 | PostgreSQL 17 tested |
 | 0.3.0 | 1.5.2 / 1.5.2, exact | Node.js >=22.19.0 | PostgreSQL 17 tested |
+| 0.4.0 | 1.6.0 / 1.6.0, exact | Node.js >=22.19.0 | PostgreSQL 17 tested |
 
 The 1.5 storage contract changes are listed in [docs/port-1.5.md](docs/port-1.5.md).
 
@@ -46,7 +47,7 @@ is enforced with an advisory lock. Unrelated schemas may have separate owners.
 
 **Live deletion is not implemented yet.** The current delete helper refuses to run
 while a storage owns the schema. Safe live deletion also needs Harness admission,
-task, cache and watch coordination that Pi Durable 1.5.2 still does not publicly expose.
+task, cache and watch coordination that Pi Durable 1.6.0 still does not publicly expose.
 See the [live-deletion design](docs/live-deletion.md) for the intended integration.
 
 ## Quick start
@@ -54,7 +55,7 @@ See the [live-deletion design](docs/live-deletion.md) for the intended integrati
 Install the alpha release:
 
 ```bash
-npm install @gscode1/pi-durable-postgres @earendil-works/pi-durable@1.5.2 @earendil-works/chord@1.5.2 @earendil-works/pi-ai@1.5.2
+npm install @gscode1/pi-durable-postgres @earendil-works/pi-durable@1.6.0 @earendil-works/chord@1.6.0 @earendil-works/pi-ai@1.6.0
 export DATABASE_URL='postgres://app:password@localhost:5432/agent_state'
 ```
 

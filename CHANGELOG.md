@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 — 2026-11-22
+
+- Validated against Pi Durable and Chord 1.6.0, pinned exactly (peer and dev); Pi AI dev pin moved to 1.6.0 too.
+- No schema change: schema version stays 2. The `Storage` interface is identical to 1.5.2. 1.6.0 changes only the stored
+  record shapes, which this adapter keeps as opaque JSON text: `pi.tool` v4 and `pi.generation` v3, `until` optional on
+  `sleeping` task states (a signal-only sleep stores no `until`), `signals` and `wake` on task states, and the `any` join
+  policy. The `tasks` columns the adapter indexes (`status`, `kind`, flags) are unaffected; none holds a wake time.
+- A database written by Pi Durable 1.6.0 must not be opened by an older Harness (upstream: it would block these tasks).
+- New regression test: a signal-only sleeping task without `until` round-trips and scans as `sleeping`. The 1.6.0
+  conformance suite passes unchanged.
+
 ## 0.3.0 — 2026-11-18
 
 - Published as npm `@gscode1/pi-durable-postgres` from the fork `gscode1/pi-durable-postgres`. Upstream `@netzlabor/pi-durable-postgres` 0.2.0
